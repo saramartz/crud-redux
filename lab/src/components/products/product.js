@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { deleteProduct } from '../actions/productAction'
+import { deleteProduct, editProduct } from '../actions/productAction'
 import { useHistory } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 
@@ -17,6 +17,7 @@ const Product = ({ product }) => {
 
     // Redirect to edit
     const redirectEditProduct = () => {
+        dispatch(editProduct(product))
         history.push(`/product/${id}`)
     }
 

@@ -5,11 +5,11 @@ import {
     LOAD_PRODUCTS,
     LOAD_PRODUCTS_SUCCESS,
     LOAD_PRODUCTS_ERROR,
-    DELETE_PRODUCT,
+    DELETE_PRODUCT, 
     DELETE_PRODUCT_SUCCESS,
     DELETE_PRODUCT_ERROR,
-    EDIT_PRODUCT,
     GET_PRODUCT_EDIT,
+    EDIT_PRODUCT,
     EDIT_PRODUCT_SUCCESS,
     EDIT_PRODUCT_ERROR
 } from '../types/'
@@ -100,3 +100,35 @@ const deleteProductSuccess = () => ({
 })
 
 // EDIT PRODUCTS
+export function editProduct(product) {
+    return (dispatch) => {
+        dispatch(getProductEdit(product))
+    }
+}
+
+const getProductEdit = (product) => ({
+    type: GET_PRODUCT_EDIT,
+    payload: product,
+})
+
+export function editProductAction(product) {
+    return async (dispatch) => {
+        dispatch(startEditProduct(product))
+
+        try {
+            await apiHandler.put(`/products/${product.id}`, product)
+            dispatch(editProductSuccess(product))            
+        } catch (error) {
+            
+        }
+    }
+}
+
+const startEditProduct = () => ({
+    type: EDIT_PRODUCT
+})
+
+const editProductSuccess = (product) => ({
+    type: EDIT_PRODUCT_SUCCESS,
+    payload: product
+})
